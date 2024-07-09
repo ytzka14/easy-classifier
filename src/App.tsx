@@ -10,12 +10,12 @@ const App = () => {
 
   return (
     <div>
-      (!clStarted &&
+      {(!clStarted && toClassify.length > 0 &&
         <button onClick={() => {setClStarted(true);}}>
           Start Classifying!
         </button>
-      )
-      (clStarted && !clFinished &&
+      )}
+      {(clStarted && !clFinished &&
         <div>
           <ClassifyeeComponent classifyee={toClassify[0]} />
           <div className="selections">
@@ -47,12 +47,12 @@ const App = () => {
             </div>
           </div>
         </div>
-      )
-      (clFinished &&
+      )}
+      {(clFinished &&
         <div>
           <ClassificationComponent classification={classified} />
         </div>
-      )
+      )}
     </div>
   )
 }
