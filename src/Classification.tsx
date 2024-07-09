@@ -11,7 +11,7 @@ export type Classification = {
   classes: Class[];
 }
 
-export const ClassifyeeComponent = ({classifyee}: {classifyee: Classifyee}) => {
+export const ClassifyeeComponent = ({classifyee}: {classifyee: Classifyee}) => { // update according to Classifyee type
   return (
     <div>
       <img src={"data:image/jpeg;base64,"+classifyee.link} />
@@ -28,9 +28,7 @@ export const ClassificationComponent = ({classification}: {classification: Class
             {classItem.name}
             {classItem.members.map((member) => {
               return (
-                <div>
-                  <img src={"data:image/jpeg;base64,"+member.link} />
-                </div>
+                <ClassifyeeComponent classifyee={member} />
               )
             })}
           </div>
