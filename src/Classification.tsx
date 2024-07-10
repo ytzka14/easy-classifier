@@ -19,7 +19,7 @@ export const ClassifyeeComponent = ({classifyee}: {classifyee: Classifyee}) => {
   )
 }
 
-export const ClassificationComponent = ({classification}: {classification: Classification}) => {
+export const ClassificationComponent = ({classification, leftover}: {classification: Classification, leftover: Classifyee[]}) => {
   return ( 
     <div>
       {classification.classes.map((classItem) => {
@@ -34,6 +34,14 @@ export const ClassificationComponent = ({classification}: {classification: Class
           </div>
         )
       })}
+      <div>
+        Unclassifyed (leftover):
+        {leftover.map((classifyee) => {
+          return (
+            <ClassifyeeComponent classifyee={classifyee} />
+          )
+        })}
+      </div>
     </div>
   )
 }

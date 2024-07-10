@@ -13,7 +13,7 @@ function shuffle<T>(array: T[]) {
 const App = () => {
   const [ clStarted, setClStarted ] = useState(false);
   const [ clFinished, setClFinished ] = useState(false);
-  const [ toClassify, setToClassify ] = useState<Classifyee[]>(shuffle<Classifyee>(items));
+  const [ toClassify, setToClassify ] = useState<Classifyee[]>(items);
   const [ classified, setClassified ] = useState<Classification>({classes: []});
   const [ inputValue, setInputValue ] = useState("");
 
@@ -33,12 +33,22 @@ const App = () => {
         </div>
       )}
       {(!clStarted && toClassify.length > 0 &&
-        <button onClick={() => {setClStarted(true);}}>
-          Start Classifying!
-        </button>
+        <div>
+          <button onClick={() => {
+            setToClassify(shuffle<Classifyee>(toClassify));
+          }}>
+            Shuffle
+          </button>
+          <button onClick={() => {setClStarted(true);}}>
+            Start Classifying!
+          </button>
+        </div>
       )}
       {(clStarted && !clFinished &&
         <div>
+          <button onClick={() => {
+            setClFinished(true);
+          }}>Quit</button>
           <ClassifyeeComponent classifyee={toClassify[0]} />
           <div className="selections">
             {classified.classes.sort((a: Class, b: Class) => a.name.localeCompare(b.name)).map((classItem, idx) => {
@@ -57,7 +67,7 @@ const App = () => {
               );
             })}
             <div>
-              <input type="text" value={inputValue} onChange={(e) => {setInputValue(e.target.value);}} />
+              <input type="text" value={inputValue} onChange={(e) => {setInputValue(e.target.value)}} />
               <button onClick={() => {
                 const newClassified = classified;
                 newClassified.classes.push({name: inputValue, members: [toClassify[0]]});
@@ -74,7 +84,7 @@ const App = () => {
       )}
       {(clFinished &&
         <div>
-          <ClassificationComponent classification={classified} />
+          <ClassificationComponent classification={classified} leftover={toClassify} />
         </div>
       )}
     </div>
