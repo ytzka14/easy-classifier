@@ -2,10 +2,18 @@ import { useState } from 'react';
 import { Classifyee, Classification, ClassifyeeComponent, ClassificationComponent, Class } from './Classification';
 import items from "./items.json";
 
+function shuffle<T>(array: T[]) { 
+  for (let i = array.length - 1; i > 0; i--) { 
+    const j = Math.floor(Math.random() * (i + 1)); 
+    [array[i], array[j]] = [array[j], array[i]]; 
+  } 
+  return array; 
+}
+
 const App = () => {
   const [ clStarted, setClStarted ] = useState(false);
   const [ clFinished, setClFinished ] = useState(false);
-  const [ toClassify, setToClassify ] = useState<Classifyee[]>(items);
+  const [ toClassify, setToClassify ] = useState<Classifyee[]>(shuffle<Classifyee>(items));
   const [ classified, setClassified ] = useState<Classification>({classes: []});
   const [ inputValue, setInputValue ] = useState("");
 
@@ -15,7 +23,7 @@ const App = () => {
         <button onClick={() => {
           setClStarted(false);
           setClFinished(false);
-          setToClassify(items);
+          setToClassify(shuffle<Classifyee>(items));
           setClassified({classes: []});
         }}>Reset</button>
       </div>
