@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Classifyee, Classification, ClassifyeeComponent, ClassificationComponent } from './Classification';
+import { Classifyee, Classification, ClassifyeeComponent, ClassificationComponent, Class } from './Classification';
 import items from "./items.json";
 
 const App = () => {
@@ -33,7 +33,7 @@ const App = () => {
         <div>
           <ClassifyeeComponent classifyee={toClassify[0]} />
           <div className="selections">
-            {classified.classes.map((classItem, idx) => {
+            {classified.classes.sort((a: Class, b: Class) => a.name.localeCompare(b.name)).map((classItem, idx) => {
               return (
                 <div onClick={() => {
                   const newClassified = classified;
@@ -58,6 +58,7 @@ const App = () => {
                   setClFinished(true);
                 } 
                 setToClassify(toClassify.slice(1));
+                setInputValue("");
               }}>Submit New Class</button>
             </div>
           </div>
