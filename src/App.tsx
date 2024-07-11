@@ -50,10 +50,12 @@ const App = () => {
             setClFinished(true);
           }}>Quit</button>
           <ClassifyeeComponent classifyee={toClassify[0]} />
-          <div className="selections">
+          <div className="selections dropdown">
             {classified.classes.sort((a: Class, b: Class) => a.name.localeCompare(b.name)).map((classItem, idx) => {
               return (
-                <div onClick={() => {
+                <div 
+                  className="dropdown-content"
+                  onClick={() => {
                   const newClassified = classified;
                   newClassified.classes[idx].members.push(toClassify[0]);
                   setClassified(newClassified);
